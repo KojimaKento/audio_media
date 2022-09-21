@@ -43,11 +43,68 @@ VScode
 ## サーバー
 Docker
 # 課題や今後実装したい機能
-- クリエイター名や作品の検索機能
-- 各クリエイターのユーザー画面
+- キーワード検索機能
+- フォロー、フォロワー機能
+- 音声再生機能
+- 各ユーザーのユーザー画面
+-　　ユーザーアイコン、プロフィール編集機能
 # DB設計
 ## usersテーブル
 |Column|Type|Options|
 |------|----|-------|
+|id|bigint(20) unsigned|null: NO|
+|name|varchar(255)|null: NO|
+|email|varchar(255)|null: NO|
+|email_verified_at|timestamp|null: YES|
+|password|varchar(255)|null: NO|
+|remember_token|varchar(100)|null: YES|
+|created_at|timestamp|null: YES|
+|updated_at|timestamp|null: YES|
+|name|varchar(255)|null: NO|
+|name|varchar(255)|null: NO|
+|icon_image_name|varchar(255)|null: YES|
+|icon_image_path|varchar(255)|null: YES|
+|profile|text|null: YES|
+## Association
+- has_many :voices
+- has_many :comments
+- has_many :likes
 
+## voicesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|id|bigint unsigned|null: NO|
+|user_id|bigint unsigned|null: YES|
+|upload_data|varchar(255)|null: NO|
+|title|text|null: NO|
+|created_at|timestamp|null: YES|
+|updated_at|timestamp|null: YES|
+## Association
+- has_many :likes
+- has_many :comments
+- belongs_to :user
 
+## commentsテーブル
+|Column|Type|Options|
+|------|----|-------|
+|id|bigint unsigned|null: NO|
+|comment|text|null: NO|
+|user_id|bigint unsigned|null: YES|
+|voice_id|bigint unsigned|null: YES|
+|created_at|timestamp|null: YES|
+|updated_at|timestamp|null: YES|
+## Association
+- belongs_to :user
+- belongs_to :voice
+
+## likesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|id|bigint unsigned|null: NO|
+|user_id|bigint unsigned|null: YES|
+|voice_id|bigint unsigned|null: YES|
+|created_at|timestamp|null: YES|
+|updated_at|timestamp|null: YES|
+## Association
+- belongs_to :user
+- belongs_to :voice
